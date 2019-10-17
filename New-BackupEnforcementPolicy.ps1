@@ -18,7 +18,6 @@ Function New-BackupPolicy {
       Write-Host "Failed to create the policy definition $Name - $error[0]"
   }
 
-  #$PolicyDef = Get-AzPolicyDefinition -Name $policyDefName
   New-AzPolicyAssignment -Name $name -PolicyDefinition $PolDef -Scope "/subscriptions/$subscriptionId" -PolicyParameter $polSettings -Location $location -AssignIdentity
   if ($? -eq "false") {
       Write-Host "Failed to create the policy assignment $Name - $error[0]"
