@@ -1,0 +1,14 @@
+{
+    "Location": {
+        "value": "eastus2"
+    },
+    "BackupVaultRGName": {
+        "value": "backupenforcementesting"
+    },
+    "BackupVaultName": {
+        "value": "backupenforcementtesting"
+    },
+    "BackupPolicyName": {
+        "value": "DefaultPolicy"
+    }
+}
