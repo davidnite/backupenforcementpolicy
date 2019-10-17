@@ -1,6 +1,4 @@
 {
-    "mode": "All",
-    "policyRule": {
       "if": {
         "allOf": [
             {
@@ -9,7 +7,7 @@
             },
             {
               "field": "location",
-              "equals": "[parameters('Location')]"
+              "equals": "[parameters('BackupVaultLocation')]"
             },
             {
               "allOf": [
@@ -158,35 +156,4 @@
           }
         }
       }
-    },
-    "parameters": {
-      "Location": {
-        "type": "String",
-        "metadata": {
-            "displayName": "Backup Vault Region",
-            "description": "Azure Region where the backup vault resides"
-        }
-      },
-      "BackupVaultRGName": {
-        "type": "String",
-        "metadata": {
-          "displayName": "Backup Vault Resource Group Name",
-          "description": "Resource Group in which the backup vault resides"
-        }
-      },
-      "BackupVaultName": {
-        "type": "String",
-        "metadata": {
-          "displayName": "Backup Vault Name",
-          "description": "Target backup vault for VM backup onboarding"
-        }
-      },
-      "BackupPolicyName": {
-        "type": "String",
-        "metadata": {
-          "displayName": "Backup Policy Name",
-          "description": "Target backup policy for VM backup onboarding"
-        }
-      }
-    }
   }

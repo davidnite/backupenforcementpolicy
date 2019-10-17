@@ -1,26 +1,26 @@
-Function BackupPolicy {
+Function New-BackupPolicy {
   [CmdletBinding()]
   param (
-      [parameter(Mandatory=$true)][string]$namePrefix,
-      [parameter(Mandatory=$true)][string]$policyFilePath
+      [parameter(Mandatory=$true)][string]$name,
+      [parameter(Mandatory=$true)][string]$subscriptionId,
+      [parameter(Mandatory=$true)][string]$location,
+      [parameter(Mandatory=$true)][string]$backupVaultRGName,
+      [parameter(Mandatory=$true)][string]$backupVaultName,
+      [parameter(Mandatory=$true)][string]$backupPolicyName
   )
 
-  $policyDefName = $namePrefix + "-Def"
-  $PolicyAsName = $namePrefix + "-As"
-  $Subscription = Get-AzSubscription
-  $policyFilePath.TrimEnd('\')
-  $policyDefPath = $policyFilePath + "\BackupEnforcementPolicy.json"
-  $policyParamPath = $policyFilePath + "\BackupEnforcementPolicy.param.json"
+  $polDefFile = "BackupEnforcementPolicy.json"
+  $polParamFile = "BackupEnforcementPolicy.param.json"
+  $polSettings = '{ "BackupVaultLocation": { "value": "' + $location + '" }, "BackupVaultRGName": { "value": "' + $backupVaultRGName + '" }, "BackupVaultName": { "value": "' + $backupVaultName + '" }, "BackupPolicyName": { "value": "' + $backupPolicyName + '" } }'
 
-  $PolicyDef = New-AzPolicyDefinition -Name $policyDefName -Policy $policyDefPath
+  $PolDef = New-AzPolicyDefinition -Name $name -Policy $polDefFile -Parameter $polParamFile
   if ($? -eq "false") {
-      Write-Host "Failed to create the policy definition $policyDefName - $error[0]"
+      Write-Host "Failed to create the policy definition $Name - $error[0]"
   }
 
   #$PolicyDef = Get-AzPolicyDefinition -Name $policyDefName
-  New-AzPolicyAssignment -Name $PolicyAsName -PolicyDefinition $PolicyDef -Scope "/subscriptions/$($Subscription.Id)" -PolicyParameter $policyParamPath -AssignIdentity
+  New-AzPolicyAssignment -Name $name -PolicyDefinition $PolDef -Scope "/subscriptions/$subscriptionId" -PolicyParameter $polSettings -Location $location -AssignIdentity
   if ($? -eq "false") {
-      Write-Host "Failed to create the policy assignment $policyAsName - $error[0]"
+      Write-Host "Failed to create the policy assignment $Name - $error[0]"
   }
-
 }
