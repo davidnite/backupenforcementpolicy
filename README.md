@@ -17,10 +17,10 @@ You will need to create both vaults and policies for every region in which you w
 * Run the New-BackupPolicy function and supply the following parameters:
 
     - Name : The name to be used for both the policy definition and the policy assignment
-    - subscriptionId : The Azure subscription to be used for the policy scope
-    - location : The Azure region in which both the VMs and the Recovery Services Vault are located
-    - backupVaultRGName : The name of the Resource Group containing the Recovery Services Vault
-    - backupVaultName : The name of the Recovery Services Vault
-    - backupPolicyName : The backup policy to apply for each VM
+    - SubscriptionId : The Azure subscription to be used for the policy scope
+    - Location : The Azure region in which both the VMs and the Recovery Services Vault are located
+    - BackupVaultRGName : The name of the Resource Group containing the Recovery Services Vault
+    - BackupVaultName : The name of the Recovery Services Vault
+    - BackupPolicyName : The backup policy to apply for each VM
 
 * Policy application can take some time, so you may see the compliance state listed as "Not Started" directly after running this script
